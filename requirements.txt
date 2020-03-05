@@ -1,0 +1,5 @@
+praw
+reportlab
+pdf2image
+img2pdf
+Pillow

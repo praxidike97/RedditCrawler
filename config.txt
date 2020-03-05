@@ -1,0 +1,7 @@
+[config]
+limit = 5
+credential_path = /home/fabian/Dokumente/reddit_credentials.txt
+dark_mode = 1
+top = week
+hot = 0
+subreddit = nosleep
