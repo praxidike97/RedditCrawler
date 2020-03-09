@@ -1,0 +1,262 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface>
+  <object class="tk.Toplevel" id="Toplevel_1">
+    <property name="height">200</property>
+    <property name="title" translatable="yes">Reddit Crawler</property>
+    <property name="width">200</property>
+    <child>
+      <object class="ttk.Frame" id="Frame_1">
+        <property name="height">230</property>
+        <property name="padding">10</property>
+        <property name="width">620</property>
+        <layout>
+          <property name="column">2</property>
+          <property name="propagate">False</property>
+          <property name="row">3</property>
+        </layout>
+        <child>
+          <object class="tk.Label" id="Label_1">
+            <property name="anchor">center</property>
+            <property name="relief">flat</property>
+            <property name="text" translatable="yes">Client Id:  </property>
+            <layout>
+              <property name="column">0</property>
+              <property name="propagate">True</property>
+              <property name="row">1</property>
+              <property name="sticky">w</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Label" id="Label_2">
+            <property name="text" translatable="yes">Client secret:  </property>
+            <layout>
+              <property name="column">0</property>
+              <property name="propagate">True</property>
+              <property name="row">2</property>
+              <property name="sticky">w</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Label" id="Label_3">
+            <property name="text" translatable="yes">Subreddit:  </property>
+            <layout>
+              <property name="column">0</property>
+              <property name="propagate">True</property>
+              <property name="row">4</property>
+              <property name="sticky">w</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Label" id="Label_4">
+            <property name="text" translatable="yes">Number of posts:  </property>
+            <layout>
+              <property name="column">0</property>
+              <property name="propagate">True</property>
+              <property name="row">5</property>
+              <property name="sticky">w</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Entry" id="Entry_2">
+            <property name="textvariable">string:entry_client_id</property>
+            <property name="width">30</property>
+            <layout>
+              <property name="column">1</property>
+              <property name="propagate">True</property>
+              <property name="row">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Entry" id="Entry_3">
+            <property name="show">•</property>
+            <property name="textvariable">string:entry_client_secret</property>
+            <property name="width">30</property>
+            <layout>
+              <property name="column">1</property>
+              <property name="propagate">True</property>
+              <property name="row">2</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Entry" id="Entry_4">
+            <property name="textvariable">string:entry_subreddit</property>
+            <property name="width">30</property>
+            <layout>
+              <property name="column">1</property>
+              <property name="propagate">True</property>
+              <property name="row">4</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Entry" id="Entry_5">
+            <property name="textvariable">string:entry_limit</property>
+            <property name="width">30</property>
+            <layout>
+              <property name="column">1</property>
+              <property name="propagate">True</property>
+              <property name="row">5</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Label" id="Label_5">
+            <layout>
+              <property name="column">0</property>
+              <property name="propagate">True</property>
+              <property name="row">3</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Label" id="Label_6">
+            <property name="relief">flat</property>
+            <property name="takefocus">false</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="propagate">True</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Label" id="Label_7">
+            <property name="compound">bottom</property>
+            <property name="font">TkTextFont</property>
+            <property name="justify">left</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="propagate">True</property>
+              <property name="row">6</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Label" id="Label_8">
+            <layout>
+              <property name="column">0</property>
+              <property name="propagate">True</property>
+              <property name="row">7</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Button" id="Button_2">
+            <property name="command">on_download_clicked</property>
+            <property name="relief">raised</property>
+            <property name="text" translatable="yes">Download</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="propagate">True</property>
+              <property name="row">8</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Label" id="Label_10">
+            <property name="text" translatable="yes">   </property>
+            <layout>
+              <property name="column">3</property>
+              <property name="propagate">True</property>
+              <property name="row">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Label" id="Label_11">
+            <property name="text" translatable="yes">Type</property>
+            <layout>
+              <property name="column">4</property>
+              <property name="propagate">True</property>
+              <property name="row">1</property>
+              <property name="sticky">w</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Radiobutton" id="Radiobutton_Type_Top">
+            <property name="anchor">w</property>
+            <property name="command">on_radio_top_clicked</property>
+            <property name="text" translatable="yes">Top</property>
+            <property name="textvariable">string:radio_type_top</property>
+            <property name="value">0</property>
+            <property name="variable">string:radio_group_type</property>
+            <layout>
+              <property name="column">5</property>
+              <property name="propagate">True</property>
+              <property name="row">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Radiobutton" id="Radiobutton_Type_Hot">
+            <property name="anchor">w</property>
+            <property name="command">on_radio_hot_clicked</property>
+            <property name="text" translatable="yes">Hot</property>
+            <property name="textvariable">string:radio_type_hot</property>
+            <property name="value">1</property>
+            <property name="variable">string:radio_group_type</property>
+            <layout>
+              <property name="column">6</property>
+              <property name="propagate">True</property>
+              <property name="row">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Label" id="Label_12">
+            <property name="text" translatable="yes">Time  </property>
+            <layout>
+              <property name="column">4</property>
+              <property name="propagate">True</property>
+              <property name="row">2</property>
+              <property name="sticky">w</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Radiobutton" id="Radiobutton_Time_Day">
+            <property name="text" translatable="yes">Day</property>
+            <property name="value">0</property>
+            <property name="variable">string:radio_group_time</property>
+            <layout>
+              <property name="column">5</property>
+              <property name="propagate">True</property>
+              <property name="row">2</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Radiobutton" id="Radiobutton_Time_Week">
+            <property name="text" translatable="yes">Week</property>
+            <property name="value">1</property>
+            <property name="variable">string:radio_group_time</property>
+            <layout>
+              <property name="column">6</property>
+              <property name="propagate">True</property>
+              <property name="row">2</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Radiobutton" id="Radiobutton_Time_All">
+            <property name="text" translatable="yes">All</property>
+            <property name="value">2</property>
+            <property name="variable">string:radio_group_time</property>
+            <layout>
+              <property name="column">7</property>
+              <property name="propagate">True</property>
+              <property name="row">2</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

@@ -3,3 +3,5 @@ reportlab
 pdf2image
 img2pdf
 Pillow
+tqdm
+pygubu

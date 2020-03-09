@@ -1,36 +1,15 @@
 import configparser
+import os
 
 import praw
+from tqdm import tqdm
 
 from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Paragraph, PageBreak
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 
-import smtplib
-from email.mime.multipart import MIMEMultipart
-from email.mime.base import MIMEBase
-#from email import E
-
 from utils.invert_pdf import invert_color
 from utils.NumberedCanvas import NumberedCanvas
-
-
-def send_email():
-    mail = MIMEMultipart()
-    mail["SUBJECT"] = "NoSleep!"
-    mail["TO"] = "fstern@uni-bremen.de"
-    mail["FROM"] = "NoSleep!"
-
-    part = MIMEBase('application', "octet-stream")
-    part.set_payload(open("./pdf_output/nosleep.pdf", "rb").read())
-    #Encoders.encode_base64(part)
-
-    part.add_header('Content-Disposition', 'attachment; filename="text.txt"')
-
-    mail.attach(part)
-
-    server = smtplib.SMTP("127.0.0.1")
-    server.sendmail("NoSleep!", "fstern@uni-bremen.de", mail.as_string())
 
 
 def get_parser():
@@ -53,9 +32,9 @@ def setup_reddit(client_id, client_secret):
     return reddit
 
 
-def create_pdf(reddit, subreddit="nosleep", limit=10, top="week", hot=False):
+def create_pdf(reddit, subreddit="nosleep", limit=10, top="week", hot=False, output_dir="./pdf_output"):
     # Set up new document
-    doc = SimpleDocTemplate("./pdf_output/%s.pdf" % subreddit,
+    doc = SimpleDocTemplate(os.path.join(output_dir, "%s.pdf" % subreddit),
                             pagesize=letter,
                             rightMargin=72,
                             leftMargin=72,
@@ -77,7 +56,7 @@ def create_pdf(reddit, subreddit="nosleep", limit=10, top="week", hot=False):
         submissions = reddit.subreddit(subreddit).hot(limit=limit)
     else:
         submissions = reddit.subreddit(subreddit).top(top, limit=limit)
-    for submission in submissions:
+    for submission in tqdm(submissions):
 
         # Append title
         flowables.append(Paragraph(submission.title + "<br/><br/>", style=styleTitle))
@@ -112,7 +91,6 @@ if __name__ == "__main__":
     reddit = setup_reddit(client_id=client_id, client_secret=client_secret)
     create_pdf(reddit, limit=limit, top=top, hot=hot, subreddit=subreddit)
 
+    print("Inverting color")
     if dark_mode:
         invert_color("./pdf_output/%s.pdf" % subreddit)
-
-    send_email()
