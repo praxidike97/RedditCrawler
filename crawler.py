@@ -32,7 +32,7 @@ def setup_reddit(client_id, client_secret):
     return reddit
 
 
-def create_pdf(reddit, subreddit="nosleep", limit=10, top="week", hot=False, output_dir="./pdf_output"):
+def create_pdf(reddit, subreddit="nosleep", limit=10, top_time="week", type="hot", output_dir="./pdf_output"):
     # Set up new document
     doc = SimpleDocTemplate(os.path.join(output_dir, "%s.pdf" % subreddit),
                             pagesize=letter,
@@ -51,15 +51,27 @@ def create_pdf(reddit, subreddit="nosleep", limit=10, top="week", hot=False, out
         leading=20
     )
 
+    styleAuthor = ParagraphStyle(
+        name='Normal',
+        fontSize=11,
+        leading=20
+    )
+
     # Iterate over submissions
-    if hot:
+    if type == "hot":
         submissions = reddit.subreddit(subreddit).hot(limit=limit)
+    elif type == "new":
+        submissions = reddit.subreddit(subreddit).new(limit=limit)
     else:
-        submissions = reddit.subreddit(subreddit).top(top, limit=limit)
+        submissions = reddit.subreddit(subreddit).top(top_time, limit=limit)
+
     for submission in tqdm(submissions):
 
         # Append title
         flowables.append(Paragraph(submission.title + "<br/><br/>", style=styleTitle))
+
+        # Append author
+        flowables.append(Paragraph("By %s <br/><br/>" % submission.author, style=styleAuthor))
 
         # Remove empty lines
         lines = submission.selftext.split("\n")
@@ -73,6 +85,9 @@ def create_pdf(reddit, subreddit="nosleep", limit=10, top="week", hot=False, out
         # New page for each submission
         flowables.append(PageBreak())
 
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+
     doc.build(flowables, canvasmaker=NumberedCanvas)
 
 
@@ -83,14 +98,13 @@ if __name__ == "__main__":
     client_secret = credentialParser.get('credentials', 'client_secret')
 
     limit = int(configParser.get('config', 'limit'))
-    dark_mode = bool(int(configParser.get('config', 'dark_mode')))
-    top = configParser.get('config', 'top')
-    hot = bool(int(configParser.get('config', 'hot')))
+    #dark_mode = bool(int(configParser.get('config', 'dark_mode')))
+    top_time = configParser.get('config', 'top_time')
+    type = configParser.get('config', 'type')
     subreddit = configParser.get('config', 'subreddit')
 
     reddit = setup_reddit(client_id=client_id, client_secret=client_secret)
-    create_pdf(reddit, limit=limit, top=top, hot=hot, subreddit=subreddit)
+    create_pdf(reddit, limit=limit, top_time=top_time, type=type, subreddit=subreddit)
 
-    print("Inverting color")
-    if dark_mode:
-        invert_color("./pdf_output/%s.pdf" % subreddit)
+    #if dark_mode:
+    #    invert_color("./pdf_output/%s.pdf" % subreddit)

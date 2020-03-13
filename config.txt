@@ -1,7 +1,6 @@
 [config]
 limit = 50
 credential_path = /home/fabian/Dokumente/reddit_credentials.txt
-dark_mode = 0
-top = year
-hot = 1
+type = top
+top_time = month
 subreddit = nosleep

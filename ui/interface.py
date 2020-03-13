@@ -1,13 +1,10 @@
-# helloworld.py
 import sys
 sys.path.append("..")
-import os
-import tkinter as tk
+
 from tkinter import filedialog
 from tkinter import messagebox
 
 import pygubu.builder.ttkstdwidgets
-
 import pygubu
 
 from crawler import setup_reddit, create_pdf
@@ -20,7 +17,8 @@ class RedditCrawlerApp:
         self.builder = builder = pygubu.Builder()
 
         # 2: Load an ui file
-        builder.add_from_file(os.path.join(sys._MEIPASS, 'interface.ui/interface.ui'))
+        #builder.add_from_file(os.path.join(sys._MEIPASS, 'interface.ui/interface.ui'))
+        builder.add_from_file('interface.ui')
 
         # 3: Create the mainwindow
         self.mainwindow = builder.get_object('Toplevel_1')
@@ -42,10 +40,8 @@ class RedditCrawlerApp:
 
     # define the function callbacks
     def on_download_clicked(self):
-        print('You clicked the Download button!')
         radio_group_type_strings = ["top", "hot"]
-        radio_group_time_strings = ["day", "week", "all"]
-
+        radio_group_time_strings = ["day", "week", "month", "year", "all"]
 
         client_id = self.builder.tkvariables['entry_client_id'].get()
         client_secret = self.builder.tkvariables['entry_client_secret'].get()
@@ -65,15 +61,14 @@ class RedditCrawlerApp:
             messagebox.showinfo("Error", 'The field "Number of posts" has to be a number')
         else:
             folder_selected = filedialog.askdirectory()
-            print(folder_selected)
 
             reddit = setup_reddit(client_id=client_id, client_secret=client_secret)
-            create_pdf(reddit, limit=int(limit), top=time_name, hot=(type_name == "hot"), subreddit=subreddit_name, output_dir=folder_selected)
+            create_pdf(reddit, limit=int(limit), top_time=time_name, type=type_name, subreddit=subreddit_name, output_dir=folder_selected)
             self.mainwindow.destroy()
 
     def on_radio_hot_clicked(self):
 
-        radio_button_names = ['Radiobutton_Time_Day', 'Radiobutton_Time_Week', 'Radiobutton_Time_All']
+        radio_button_names = ['Radiobutton_Time_Day', 'Radiobutton_Time_Week', 'Radiobutton_Time_Month', 'Radiobutton_Time_Year', 'Radiobutton_Time_All']
 
         for radio_button_name in radio_button_names:
             radio_button = self.builder.get_object(radio_button_name)
@@ -82,7 +77,7 @@ class RedditCrawlerApp:
 
     def on_radio_top_clicked(self):
 
-        radio_button_names = ['Radiobutton_Time_Day', 'Radiobutton_Time_Week', 'Radiobutton_Time_All']
+        radio_button_names = ['Radiobutton_Time_Day', 'Radiobutton_Time_Week', 'Radiobutton_Time_Month', 'Radiobutton_Time_Year', 'Radiobutton_Time_All']
 
         for radio_button_name in radio_button_names:
             radio_button = self.builder.get_object(radio_button_name)
