@@ -59,3 +59,5 @@ But you can also use the graphical client. Just execute interface.py in the ui/ 
 ![alttext](images/img04.png)
 
 Just fill out the form and hit "Download". This allows you to select a download directory.
+
+Have fun and please don't break stuff!! (づ｡◕‿‿◕｡)づ
