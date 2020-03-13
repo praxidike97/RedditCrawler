@@ -8,7 +8,6 @@ from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Paragraph, PageBreak
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 
-from utils.invert_pdf import invert_color
 from utils.NumberedCanvas import NumberedCanvas
 
 
@@ -98,6 +97,7 @@ if __name__ == "__main__":
     client_secret = credentialParser.get('credentials', 'client_secret')
 
     limit = int(configParser.get('config', 'limit'))
+    limit = min(250, limit)
     #dark_mode = bool(int(configParser.get('config', 'dark_mode')))
     top_time = configParser.get('config', 'top_time')
     type = configParser.get('config', 'type')
@@ -105,6 +105,3 @@ if __name__ == "__main__":
 
     reddit = setup_reddit(client_id=client_id, client_secret=client_secret)
     create_pdf(reddit, limit=limit, top_time=top_time, type=type, subreddit=subreddit)
-
-    #if dark_mode:
-    #    invert_color("./pdf_output/%s.pdf" % subreddit)
